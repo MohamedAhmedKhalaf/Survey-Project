@@ -1,0 +1,238 @@
+[
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTMLResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.express",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.express",
+        "description": "plotly.express",
+        "detail": "plotly.express",
+        "documentation": {}
+    },
+    {
+        "label": "to_html",
+        "importPath": "plotly.io",
+        "description": "plotly.io",
+        "isExtraImport": true,
+        "detail": "plotly.io",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "seaborn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "seaborn",
+        "description": "seaborn",
+        "detail": "seaborn",
+        "documentation": {}
+    },
+    {
+        "label": "Jinja2Templates",
+        "importPath": "fastapi.templating",
+        "description": "fastapi.templating",
+        "isExtraImport": true,
+        "detail": "fastapi.templating",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "HTMLResponse",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "px",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "to_html",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "pd",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "sns",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "Jinja2Templates",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "imports",
+        "description": "imports",
+        "isExtraImport": true,
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.graph_objects",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.graph_objects",
+        "description": "plotly.graph_objects",
+        "detail": "plotly.graph_objects",
+        "documentation": {}
+    },
+    {
+        "label": "WordCloud",
+        "importPath": "wordcloud",
+        "description": "wordcloud",
+        "isExtraImport": true,
+        "detail": "wordcloud",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "__all__",
+        "kind": 5,
+        "importPath": "imports",
+        "description": "imports",
+        "peekOfCode": "__all__ = [\n    'FastAPI',\n    'HTTPException',\n    'HTMLResponse',\n    'px',\n    'to_html',\n    'pd',\n    'sns',\n    'Jinja2Templates',\n    'Request',",
+        "detail": "imports",
+        "documentation": {}
+    },
+    {
+        "label": "root",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()\n    genders_df = genders_df.reset_index()\n    # AGE DIST (BAR-CHART)\n    age_Series = df['What is your age?'].value_counts().reset_index()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "templates",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "df = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()\n    genders_df = genders_df.reset_index()",
+        "detail": "main",
+        "documentation": {}
+    }
+]

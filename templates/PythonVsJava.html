@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Python vs Java Analysis</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
+      * {
+        font-family: "JetBrains Mono", monospace;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2 {
+        color: whitesmoke;
+      }
+
+      h1 {
+        border-bottom: #1c1f2c 2px solid;
+      }
+
+      body {
+        background-color: #0e0f1a;
+        text-align: center;
+        margin: 0px;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        gap: 1%;
+        padding: 1%;
+      }
+
+      .pie {
+        overflow: hidden;
+        border-radius: 0 0 13px 13px; /* Rounded bottom corners */
+        cursor: pointer;
+        background-color: #0e0f1a; /* Solid background for the plot area */
+        flex-grow: 1; /* Allow plot div to take available space */
+        display: flex; /* Use flexbox to center image/plotly */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+      }
+
+      .container_of_plot {
+        width: 32.6%; /* Adjust width slightly to fit 3 in a row with gap */
+        min-width: 300px; /* Minimum width for responsiveness */
+        flex-grow: 1; /* Allow items to grow */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.1s ease-in-out;
+        position: relative;
+        background: #060c21;
+        border-radius: 10px;
+        margin-bottom: 1%; /* Add some margin between rows */
+      }
+
+       /* Ensure Plotly and image content fits within the .pie div */
+      .pie > div, /* For Plotly divs */
+      .pie > img { /* For the word cloud image */
+          max-width: 100%;
+          max-height: 100%;
+          height: auto; /* Maintain aspect ratio for images */
+      }
+
+
+      .header_of_container {
+        background-color: #1c1f2c;
+        border-radius: 10px 10px 0 0;
+        padding: 10px;
+      }
+
+      .hr {
+        margin: 0px;
+        width: 100%;
+        border: none; /* Remove default border */
+        height: 1px; /* Set height */
+        background-color: #1c1f2c; /* Match header background */
+      }
+
+      .container_of_plot:hover {
+        transform: scale(1.01);
+      }
+
+      .header {
+        margin: 0px;
+        background-color: #0b0c15;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+
+      .header h1 {
+        margin: 0px;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+      }
+
+      /* Popup styles */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #1c1f2c;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1000;
+        width: 50%;
+        color: whitesmoke;
+      }
+
+      .popup .popup-content {
+        margin: 10px 0;
+      }
+
+      .popup .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 40px;
+        height: 28px;
+      }
+
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+      }
+
+      .big-container {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .content {
+        width: calc(100% - 200px); /* Adjust content width based on sidebar */
+        height: 100%;
+        margin-left: 200px; /* Push content to the right of the sidebar */
+        padding: 10px; /* Add padding around content */
+      }
+
+
+      .side-bar {
+        background-color: #0b0c15;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+        width: 200px;
+        position: fixed;
+      }
+
+      .side-bar a {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .side-bar a:hover {
+        background-color: #1c1f2c;
+      }
+
+
+      /* Glowing border effects */
+      .container_of_plot::before,
+      .container_of_plot::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        z-index: -1;
+        border-radius: 13px;
+      }
+
+      /* Apply gradients more generally or use a single pattern */
+      .container_of_plot::before,
+      .container_of_plot::after {
+        background: conic-gradient(
+          from var(--angle),
+          #0c63e7,
+          #060c21,
+          #0c63e7,
+          #9600ff
+        );
+      }
+
+
+      .container_of_plot::after {
+        z-index: -2;
+        filter: blur(20px);
+      }
+
+      .container_of_plot:hover::before,
+      .container_of_plot:hover::after {
+        animation: glowing-border 3.5s linear infinite;
+      }
+
+      .container_of_plot:hover::after {
+        animation: glowing-border 3.5s linear infinite,
+          blur-effect 3.5s linear infinite;
+      }
+
+      @property --angle {
+        syntax: "<angle>";
+        initial-value: 53deg;
+        inherits: false;
+      }
+
+      @keyframes glowing-border {
+        from {
+          --angle: 53deg;
+        }
+
+        to {
+          --angle: 413deg;
+        }
+      }
+
+      @keyframes blur-effect {
+        from {
+          filter: blur(20px);
+        }
+
+        to {
+          filter: blur(19px);
+        }
+      }
+
+        /* WebKit browsers */
+      ::-webkit-scrollbar {
+        width: 8px;  /* or thinner like 6px */
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;  /* remove white background */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #9500ff;  /* purple color */
+        border-radius: 10px;
+      }
+
+      /* Firefox */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #9600ff transparent;
+      }
+
+      /* Remove the glass effect as requested implicitly by only keeping styles */
+      /* .container_of_plot .glass { display: none; } */
+
+
+      
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Python vs Java Survey Analysis</h1>
+    </div>
+
+    <div class="big-container">
+      <div class="big-container">
+      <div class="side-bar">
+        <a href="http://127.0.0.1:8031/dashboard">📊 Respondents</a>
+        <a href="http://127.0.0.1:8031/PythonVsJava">Python Vs Java</a>
+      </div>
+
+      <div class="content">
+        <div class="container">
+            <!-- Most Frequently Used Language -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Most Frequently Used Language</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Most Frequently Used Language', 'This chart shows which programming language respondents use most often.')"
+                >
+                    {{ lang_used_div | safe }}
+                </div>
+            </div>
+
+            <!-- Preference for Data Science/ML -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Preference for Data Science/ML</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Preference for Data Science/ML', 'This chart shows the preferred language for Data Science and Machine Learning tasks.')"
+                >
+                    {{ lang_used_data_div | safe }}
+                </div>
+            </div>
+
+            <!-- Preference for Web Development -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Preference for Web Development</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Preference for Web Development', 'This chart shows the preferred language for Web Development tasks.')"
+                >
+                    {{ lang_used_web_div | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Preference for Enterprise Applications -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Preference for Enterprise Apps</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Preference for Enterprise Applications', 'This chart shows the preferred language for Enterprise Application development.')"
+                >
+                    {{ lang_used_entr_div | safe }}
+                </div>
+            </div>
+
+            <!-- Preference for Statistical Analysis -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Preference for Statistical Analysis</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Preference for Statistical Analysis', 'This chart shows the preferred language for Statistical Analysis tasks.')"
+                >
+                    {{ lang_used_stat_div | safe }}
+                </div>
+            </div>
+
+            <!-- Frequency of Switching Languages -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Language Switching Frequency</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Language Switching Frequency', 'This chart shows how often respondents switch between programming languages.')"
+                >
+                    {{ switch_langs_div | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Most Efficient Language -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Perceived Most Efficient Language</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Perceived Most Efficient Language', 'This chart shows which language respondents perceive as most efficient for their tasks.')"
+                >
+                    {{ most_Effi_div | safe }}
+                </div>
+            </div>
+
+             <!-- Language Predicted to Dominate Future Market -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Future Job Market Dominance</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Future Job Market Dominance', 'This chart shows which language respondents believe will dominate the job market in the next 5 years.')"
+                >
+                    {{ future_div | safe }}
+                </div>
+            </div>
+
+            <!-- Easiest Language to Learn -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Easiest Language to Learn</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Easiest Language to Learn', 'This chart shows which language respondents found easiest to learn.')"
+                >
+                    {{ easier_div | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Language with Best Docs/Resources -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Best Docs & Resources</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Best Documentation & Resources', 'This chart shows which language respondents believe has the most beginner-friendly documentation and resources.')"
+                >
+                    {{ docs_rosources_div | safe }}
+                </div>
+            </div>
+
+            <!-- Open Source Contribution Status -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Open Source Contribution</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Open Source Contribution Status', 'This chart shows whether respondents have contributed to open source projects in these languages.')"
+                >
+                    {{ contribution_div | safe }}
+                </div>
+            </div>
+
+             <!-- Gender vs Most Frequent Language -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Gender vs. Primary Language</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Gender vs. Primary Language', 'This chart shows the distribution of genders across the most frequently used programming languages.')"
+                >
+                    {{ gender_lang_div | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Age vs Most Frequent Language -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Age vs. Primary Language</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Age vs. Primary Language', 'This chart shows the age distribution for respondents using different primary languages.')"
+                >
+                    {{ age_lang_div | safe }}
+                </div>
+            </div>
+
+             <!-- Experience vs Most Frequent Language (Box Plot) -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Experience by Primary Language (Box Plot)</h2>
+                </div>
+                <hr class="hr" />
+                 <!-- NOTE: In your Python code, 'langs_roles_div' is also assigned 'fig_exp_lang'. -->
+                 <!-- If you intended 'langs_roles_div' for a different plot (like Sunburst or Treemap), -->
+                 <!-- please correct the variable assignment in your Python code. -->
+                <div
+                    class="pie"
+                    onclick="openPopup('Experience by Primary Language', 'This chart shows the distribution of years of programming experience based on the most frequently used language.')"
+                >
+                    {{ exp_lang_div | safe }}
+                </div>
+            </div>
+
+            <!-- Language Usage by General Role (Sunburst Chart) -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Language Usage by General Role (Sunburst)</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                     onclick="openPopup('Language Usage by General Role (Sunburst)', 'This chart shows the breakdown of primary language usage within general job roles.')"
+                >
+                    {{ langs_roles_div | safe }} {# Assuming this variable will point to the sunburst #}
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Language Transition: Use -> Enterprise Preference (Sankey) -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Language Flow: Use to Enterprise Preference</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Language Transition: Use to Enterprise Preference (Sankey)', 'This chart visualizes the flow of respondents from their most frequently used language to their preferred language for enterprise applications.')"
+                >
+                    {{ per_entr_div | safe }}
+                </div>
+            </div>
+
+             <!-- Language Preference by Task (Stacked Bar) -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Language Preference by Task</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Language Preference by Task (Stacked Bar)', 'This chart shows the count of respondents who prefer Python or Java for different types of programming tasks.')"
+                >
+                    {{ summary_div | safe }}
+                </div>
+            </div>
+
+            <!-- Language Usage by General Role (Treemap) -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Language Usage by General Role (Treemap)</h2>
+                </div>
+                <hr class="hr" />
+                 <div
+                    class="pie"
+                     onclick="openPopup('Language Usage by General Role (Treemap)', 'This chart shows the hierarchical breakdown of language usage within general job roles using a treemap.')"
+                >
+                    {{ tree_map_div | safe }} {# Assuming this variable points to the treemap #}
+                </div>
+            </div>
+        </div>
+
+         <div class="container">
+             <!-- Word Cloud: Language Preference Reasons -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Language Preference Reasons (Word Cloud)</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Language Preference Reasons (Word Cloud)', 'This word cloud visualizes the most common words from respondents explanations for choosing a preferred language.')"
+                >
+                    {# The word cloud is a base64 image, not Plotly HTML #}
+                    <img src="{{ wordcloud_image }}" alt="Language Preference Reasons Word Cloud" style="width:100%; height:auto;"/>
+                </div>
+            </div>
+
+             <!-- Experience Distribution by Preferred Language (Violin) -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Experience by Primary Language (Violin)</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Experience Distribution by Primary Language (Violin)', 'This violin plot shows the distribution and density of programming experience for each primary language.')"
+                >
+                    {{ violin_div | safe }}
+                </div>
+            </div>
+
+             <!-- Python Adoption Funnel -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Python Adoption Funnel</h2>
+                </div>
+                <hr class="hr" />
+                 <div
+                    class="pie"
+                    onclick="openPopup('Python Adoption Funnel', 'This funnel chart shows the progression of Python through stages: Perceived Future Dominance, Most Used, and Recommended for Entry.')"
+                >
+                    {{ funn_py_div | safe }}
+                </div>
+            </div>
+         </div>
+
+        <div class="container">
+             <!-- Java Adoption Funnel -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Java Adoption Funnel</h2>
+                </div>
+                <hr class="hr" />
+                 <div
+                    class="pie"
+                    onclick="openPopup('Java Adoption Funnel', 'This funnel chart shows the progression of Java through stages: Perceived Future Dominance, Most Used, and Recommended for Entry.')"
+                >
+                    {{ funn_java_div | safe }}
+                </div>
+            </div>
+
+            <!-- Open Source Contribution Status by Most Frequent Language -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>OSS Contribution by Primary Language</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Open Source Contribution by Primary Language (Stacked Bar)', 'This chart shows the breakdown of open source contribution status for respondents based on their most frequently used language.')"
+                >
+                    {{ contr_langs_div | safe }}
+                </div>
+            </div>
+
+            <!-- Animated Bubble Chart: Experience vs. Switching Frequency by Age -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Experience vs. Switching (Animated)</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Experience vs. Switching Frequency by Age (Animated Bubble Chart)', 'This animated chart explores the relationship between programming experience and language switching frequency, sized by resource-seeking behavior and colored by perceived most efficient language, animated over different age groups.')"
+                >
+                    {{ age_effi_div | safe }}
+                </div>
+            </div>
+         </div>
+
+
+      </div> {# End of content div #}
+    </div> {# End of big-container div #}
+
+    <!-- Popup and overlay -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+      <button class="popup-close" onclick="closePopup()">X</button>
+      <h2 id="popup-title"></h2>
+      <div class="popup-content" id="popup-content"></div>
+    </div>
+
+    <script>
+      function openPopup(title, content) {
+        document.getElementById("popup-title").textContent = title;
+        document.getElementById("popup-content").textContent = content;
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("popup-overlay").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("popup-overlay").style.display = "none";
+      }
+
+      // Optional: Adjust height of plot divs after they load to ensure consistency
+      // This might be needed depending on how Plotly renders within the flex container
+      // window.addEventListener('load', function() {
+      //     const plotContainers = document.querySelectorAll('.container_of_plot');
+      //     plotContainers.forEach(container => {
+      //         const headerHeight = container.querySelector('.header_of_container').offsetHeight;
+      //         const hrHeight = container.querySelector('.hr').offsetHeight;
+      //         const pieDiv = container.querySelector('.pie');
+      //         pieDiv.style.height = `calc(100% - ${headerHeight + hrHeight}px)`;
+      //     });
+      // });
+
+    </script>
+  </body>
+</html>

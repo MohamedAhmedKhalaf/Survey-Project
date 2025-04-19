@@ -1,0 +1,479 @@
+<html>
+  <head>
+    <title>Male vs Female</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
+      * {
+        font-family: "JetBrains Mono", monospace;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2 {
+        color: whitesmoke;
+      }
+
+      h1 {
+        border-bottom: #1c1f2c 2px solid;
+      }
+
+      body {
+        background-color: #0e0f1a;
+        text-align: center;
+        margin: 0px;
+      }
+
+      .container {
+        display: flex;
+        gap: 1%;
+        padding: 1%;
+      }
+
+      .pie {
+        overflow: hidden;
+        border-radius: 13px;
+        cursor: pointer;
+        background-color: #0e0f1a; /* Solid background for the pie chart */
+      }
+
+      .container_of_plot {
+        width: 33%;
+        height: 33%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.1s ease-in-out;
+        position: relative;
+        background: #060c21;
+        border-radius: 10px;
+      }
+
+      .header_of_container {
+        background-color: #1c1f2c;
+        border-radius: 10px 10px 0 0;
+        padding: 10px;
+      }
+
+      .hr {
+        margin: 0px;
+        width: 100%;
+        
+      }
+
+      .hh {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+
+      .container_of_plot:hover {
+        transform: scale(1.01);
+      }
+
+      .header {
+        margin: 0px;
+        background-color: #0b0c15;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+
+      .header h1 {
+        margin: 0px;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+      }
+
+      /* Popup styles */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #1c1f2c;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1000;
+        width: 50%;
+        color: whitesmoke;
+      }
+
+      .popup .popup-content {
+        margin: 10px 0;
+      }
+
+      .popup .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 40px;
+        height: 28px;
+      }
+
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+      }
+
+      .big-container {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .content {
+        width: 88%;
+        height: 100%;
+        margin-left: auto;
+      }
+
+      .side-bar {
+        background-color: #0b0c15;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+        width: 200px;
+        position: fixed;
+      }
+
+      .side-bar a {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .side-bar a:hover {
+        background-color: #1c1f2c;
+      }
+
+      /* Glowing border effects */
+      .container_of_plot::before,
+      .container_of_plot::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        z-index: -1;
+        border-radius: 13px;
+      }
+
+      .container_of_plot:nth-child(1)::before,
+      .container_of_plot:nth-child(1)::after {
+        background: conic-gradient(
+          from var(--angle),
+          #0c63e7,
+          #060c21,
+          #0c63e7,
+          #9600ff
+        );
+      }
+
+      .container_of_plot:nth-child(2)::before,
+      .container_of_plot:nth-child(2)::after {
+        background: conic-gradient(
+          from var(--angle),
+          #0c63e7,
+          #060c21,
+          #0c63e7,
+          #9600ff
+        );
+      }
+
+      .container_of_plot:nth-child(3)::before,
+      .container_of_plot:nth-child(3)::after {
+        background: conic-gradient(
+          from var(--angle),
+          #0c63e7,
+          #060c21,
+          #0c63e7,
+          #9600ff
+        );
+      }
+
+      .container_of_plot::after {
+        z-index: -2;
+        filter: blur(20px);
+      }
+
+      .container_of_plot:hover::before,
+      .container_of_plot:hover::after {
+        animation: glowing-border 3.5s linear infinite;
+      }
+
+      .container_of_plot:hover::after {
+        animation: glowing-border 3.5s linear infinite,
+          blur-effect 3.5s linear infinite;
+      }
+
+      @property --angle {
+        syntax: "<angle>";
+        initial-value: 53deg;
+        inherits: false;
+      }
+
+      @keyframes glowing-border {
+        from {
+          --angle: 53deg;
+        }
+
+        to {
+          --angle: 413deg;
+        }
+      }
+
+      @keyframes blur-effect {
+        from {
+          filter: blur(20px);
+        }
+
+        to {
+          filter: blur(19px);
+        }
+      }
+
+      /* Glass effect */
+      .container_of_plot .glass {
+        /* Remove this entire block to remove the glass effect OR adjust the rgba value */
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 50%;
+        background: rgba(255, 255, 255, 0.1); /* Adjust alpha here for less effect */
+        display: block;
+        pointer-events: none;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 1024px) {
+        .container {
+          gap: 20px;
+        }
+
+        .container_of_plot {
+          width: 30%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-wrap: wrap;
+          gap: 15px;
+        }
+
+        .container_of_plot {
+          width: 48%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container_of_plot {
+          width: 100%;
+        }
+      }
+
+              /* WebKit browsers */
+        ::-webkit-scrollbar {
+        width: 8px;  /* or thinner like 6px */
+       }
+
+        ::-webkit-scrollbar-track {
+          background: transparent;  /* remove white background */
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background-color: #9500ff;  /* purple color */
+          border-radius: 10px;
+        }
+
+      /* Firefox */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #9600ff transparent;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Analysis of Survey Respondents</h1>
+    </div>
+
+    <div class="big-container">
+      <div class="side-bar">
+        <a href="http://127.0.0.1:8031/dashboard">📊 Respondents</a>
+        <a href="http://127.0.0.1:8031/PythonVsJava">Python Vs Java</a>
+      </div>
+
+      <div class="content">
+        <div class="container">
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Males Vs Females</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Gender Distribution', 'This chart shows the distribution of male and female respondents in the survey.')"
+            >
+              {{ plot_div | safe }}
+            </div>
+          </div>
+
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Age Distribution</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Age Distribution', 'This chart illustrates the distribution of respondents across different age categories.')"
+            >
+              {{ age_dist_div | safe }}
+            </div>
+          </div>
+
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Roles Distribution</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Roles Distribution', 'This chart presents the distribution of different roles of respondents in the survey.')"
+            >
+              {{ roles_dist_div | safe }}
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Years Of Experience</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Years of Experience', 'This chart shows the distribution of years of experience.')"
+            >
+              {{ exp_dist_div | safe }}
+            </div>
+          </div>
+
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Major</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Major Distribution', 'This chart illustrates the distribution of respondents by major.')"
+            >
+              {{ major_dist_div | safe }}
+            </div>
+          </div>
+
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Programming Languages</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Programming Languages', 'This chart shows the distribution of programming languages known by respondents.')"
+            >
+              {{ langs_dist_div | safe }}
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Gender vs Programming Experience</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Years of Experience', 'This chart shows the distribution of years of experience.')"
+            >
+              {{ gender_exp_div | safe }}
+            </div>
+          </div>
+
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Major vs Languages Used</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Major Distribution', 'This chart illustrates the distribution of respondents by major.')"
+            >
+              {{ job_lang_div | safe }}
+            </div>
+          </div>
+
+          <div class="container_of_plot">
+            <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
+            <div class="header_of_container">
+              <h2>Role vs Programming Experience</h2>
+            </div>
+            <hr class="hr" />
+            <div
+              class="pie"
+              onclick="openPopup('Programming Languages', 'This chart shows the distribution of programming languages known by respondents.')"
+            >
+              {{ role_exp_div | safe }}
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Popup and overlay -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+      <button class="popup-close" onclick="closePopup()">X</button>
+      <h2 id="popup-title"></h2>
+      <div class="popup-content" id="popup-content"></div>
+    </div>
+
+    <script>
+      function openPopup(title, content) {
+        document.getElementById("popup-title").textContent = title;
+        document.getElementById("popup-content").textContent = content;
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("popup-overlay").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("popup-overlay").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
