@@ -268,7 +268,7 @@ async def get_gender_portion(request: Request):
     role_exp_div = to_html(fig_role_exp,full_html=False)
 
 
-    return templates.TemplateResponse("gender.html", {
+    return templates.TemplateResponse("respondents.html", {
         "request": request, 
         "plot_div": plot_div,
         "age_dist_div": age_dist_div,
