@@ -4,9 +4,16 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import base64
 import io
+import uvicorn
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+
+
+host = "127.0.0.1"
+port = 8000
+
+
 
 df = pd.read_csv('./cleaned_full_survey_data.csv')
 
@@ -278,7 +285,9 @@ async def get_gender_portion(request: Request):
         'langs_dist_div':langs_dist_div,
         'gender_exp_div':gender_exp_div,
         'job_lang_div':job_lang_div,
-        'role_exp_div':role_exp_div
+        'role_exp_div':role_exp_div,
+        'host':host,
+        'port':port
     })
 
 
@@ -862,5 +871,13 @@ async def get_gender_portion(request: Request):
         'funn_java_div':funn_java_div,
         'contr_langs_div':contr_langs_div,
         'age_effi_div':age_effi_div,
+        'host':host,
+        'port':port
 
     })
+
+
+if __name__ == "__main__":
+    host = "127.0.0.1"
+    port = 8000
+    uvicorn.run("main:app", host=host, port=port, reload=True)

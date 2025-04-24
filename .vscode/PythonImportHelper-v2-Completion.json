@@ -191,6 +191,15 @@
         "documentation": {}
     },
     {
+        "label": "uvicorn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uvicorn",
+        "description": "uvicorn",
+        "detail": "uvicorn",
+        "documentation": {}
+    },
+    {
         "label": "__all__",
         "kind": 5,
         "importPath": "imports",
@@ -213,7 +222,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()",
+        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\nhost = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):",
         "detail": "main",
         "documentation": {}
     },
@@ -222,7 +231,25 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()",
+        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\nhost = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "host",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "host = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "port",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "port = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()",
         "detail": "main",
         "documentation": {}
     },
