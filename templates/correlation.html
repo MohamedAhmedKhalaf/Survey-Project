@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Correlation Analysis</title>
+    <style>
+      /* Keep all your existing CSS styles here. */
+      @import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
+      * {
+        font-family: "JetBrains Mono", monospace;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2 {
+        color: whitesmoke;
+      }
+
+      h1 {
+        border-bottom: #1c1f2c 2px solid;
+      }
+
+      body {
+        background-color: #0e0f1a;
+        text-align: center;
+        margin: 0px;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        gap: 1%;
+        padding: 1%;
+        /* Make the container stretch to accommodate the large heatmap */
+        justify-content: center; /* Center the heatmap */
+        align-items: flex-start; /* Align items to the top */
+      }
+
+      .plot {
+        overflow: hidden; /* Hide overflow within the plot div if Plotly plot is larger */
+        border-radius: 0 0 13px 13px; /* Rounded bottom corners */
+        background-color: #0e0f1a; /* Solid background for the plot area */
+        flex-grow: 1; /* Allow plot div to take available space */
+        display: flex; /* Use flexbox to center image/plotly */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+         /* Allow heatmap to take more width */
+         min-width: 800px; /* Ensure enough space for the heatmap */
+         /* Explicitly set min-height if needed, but Plotly usually handles height */
+         /* min-height: 600px; */
+      }
+
+      .container_of_plot {
+        /* Removed width percentage as heatmap needs more space */
+        /* Removed min-width */
+        flex-grow: 1; /* Allow items to grow */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.1s ease-in-out; /* Keep transition for hover effect */
+        position: relative;
+        background: #060c21;
+        border-radius: 10px;
+        margin-bottom: 1%; /* Add some margin between rows */
+        width: 98%; /* Make it take almost full width for the heatmap */
+        /* Important: Allow the container to grow in height with the Plotly plot */
+        height: auto;
+      }
+
+       /* Ensure Plotly content fits within the .plot div */
+      .plot > div { /* For Plotly divs (often contain the iframe or SVG) */
+          max-width: 100%;
+          max-height: 100%; /* Should ideally be 100% to fill parent */
+          height: auto !important; /* Let Plotly manage its own height based on content, override potential 100% if needed */
+          /* Add this to make sure Plotly's internal container also adapts */
+          width: 100% !important;
+      }
+
+
+      .header_of_container {
+        background-color: #1c1f2c;
+        border-radius: 10px 10px 0 0;
+        padding: 10px;
+      }
+
+      .hr {
+        margin: 0px;
+        width: 100%;
+        border: none; /* Remove default border */
+        height: 1px; /* Set height */
+        background-color: #1c1f2c; /* Match header background */
+      }
+
+      /* Keep hover effects if desired, though scale might be odd on large heatmaps */
+      /* .container_of_plot:hover { transform: scale(1.01); } */
+
+
+      .header {
+        margin: 0px;
+        background-color: #0b0c15;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+
+      .header h1 {
+        margin: 0px;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+      }
+
+      /* Popup styles (optional, removed onclick for heatmap) */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #1c1f2c;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1000;
+        width: 50%;
+        color: whitesmoke;
+      }
+
+      .popup .popup-content {
+        margin: 10px 0;
+      }
+
+      .popup .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 40px;
+        height: 28px;
+      }
+
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+      }
+
+      .big-container {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .content {
+        width: calc(100% - 200px); /* Adjust content width based on sidebar */
+        /* height: 100%; Removed fixed height to allow content to scroll */
+        min-height: 100vh; /* Ensure content takes at least viewport height */
+        margin-left: 200px; /* Push content to the right of the sidebar */
+        padding: 10px; /* Add padding around content */
+        overflow-y: auto; /* Allow vertical scrolling for the content area */
+      }
+
+
+      .side-bar {
+        background-color: #0b0c15;
+        color: white;
+        /* height: 100vh; Changed to min-height or removed if position:fixed is used */
+        min-height: 100vh; /* Ensures sidebar covers the viewport height */
+        padding-top: 20px;
+        width: 200px;
+        position: fixed; /* Keep fixed position */
+        top: 14; /* Align to top */
+        left: 0; /* Align to left */
+        overflow-y: auto; /* Add scrolling to sidebar if content exceeds height */
+      }
+
+      .side-bar a {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .side-bar a:hover {
+        background-color: #1c1f2c;
+      }
+
+
+      /* Glowing border effects */
+      .container_of_plot::before,
+      .container_of_plot::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        z-index: -1;
+        border-radius: 13px;
+      }
+
+      /* Apply gradients more generally or use a single pattern */
+      .container_of_plot::before,
+      .container_of_plot::after {
+        background: conic-gradient(
+          from var(--angle),
+          #0c63e7,
+          #060c21,
+          #0c63e7,
+          #9600ff
+        );
+      }
+
+
+      .container_of_plot::after {
+        z-index: -2;
+        filter: blur(20px);
+      }
+
+      /* Animation properties */
+      @property --angle {
+        syntax: "<angle>";
+        initial-value: 53deg;
+        inherits: false;
+      }
+
+      @keyframes glowing-border {
+        from {
+          --angle: 53deg;
+        }
+
+        to {
+          --angle: 413deg;
+        }
+      }
+
+      @keyframes blur-effect {
+        from {
+          filter: blur(20px);
+        }
+
+        to {
+          filter: blur(19px);
+        }
+      }
+
+        /* WebKit browsers scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #9500ff;
+        border-radius: 10px;
+      }
+
+      /* Firefox scrollbar */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #9600ff transparent;
+      }
+      .py{
+        font-size: 12px; /* Keep font size adjustment for PythonVsJava link */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Correlation Analysis Heatmap</h1>
+    </div>
+
+    <div class="big-container">
+      <div class="side-bar">
+        <a href="http://{{ host }}:{{ port }}/descriptive_stats">📊 Statistics</a> {# Link to this new page #}
+        <a href="http://{{ host }}:{{ port }}/dashboard">👨‍💻 Respondents</a>
+        <a class="py" href="http://{{ host }}:{{ port }}/PythonVsJava"> 🐍 Python Vs 🍵 Java</a>
+        <a href="http://{{ host }}:{{ port }}/infer_stat">📈 Inference</a>
+        <a href="http://{{ host }}:{{ port }}/correlation">🔗 Correlation</a>
+        <a href="http://{{ host }}:{{ port }}/machine_learning">🤖 ML Model</a>
+      </div>
+
+      <div class="content">
+        <div class="container">
+            <!-- Correlation Matrix Heatmap -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <!-- Title will be set by Plotly layout now -->
+                    <!-- <h2>Filtered Correlation Matrix (Abs Correlation >= 0.5)</h2> -->
+                </div>
+                <hr class="hr" />
+                <div class="plot">
+                    <!-- Plotly chart HTML will be injected here -->
+                    {{ correlation_plot_div | safe }}
+                </div>
+            </div>
+        </div>
+      </div> {# End of content div #}
+    </div> {# End of big-container div #}
+
+    <!-- Popup and overlay - Kept in case you want to use them later -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+      <button class="popup-close" onclick="closePopup()">X</button>
+      <h2 id="popup-title"></h2>
+      <div class="popup-content" id="popup-content"></div>
+    </div>
+
+    <script>
+        // Popup functions - Keep them even if not currently used by the heatmap
+        function openPopup(title, content) {
+          document.getElementById("popup-title").textContent = title;
+          document.getElementById("popup-content").textContent = content;
+          document.getElementById("popup").style.display = "block";
+          document.getElementById("popup-overlay").style.display = "block";
+        }
+
+        function closePopup() {
+          document.getElementById("popup").style.display = "none";
+          document.getElementById("popup-overlay").style.display = "none";
+        }
+
+        // Optional: Adjust height of plot divs after they load if needed
+        // Note: Plotly usually sets its own height based on the layout.height parameter.
+        // Manipulating height here might conflict. Relying on CSS flexbox and Plotly layout is better.
+        // window.addEventListener('load', function() {
+        //     const plotDivs = document.querySelectorAll('.plot > div'); // Select the inner Plotly div
+        //     plotDivs.forEach(plotlyDiv => {
+        //         // Example: Ensure the Plotly container explicitly takes 100% height of its parent .plot
+        //         // This is often handled by Plotly itself, but can be a CSS fix.
+        //         // plotlyDiv.style.height = '100%';
+        //         // plotlyDiv.style.width = '100%';
+        //     });
+        // });
+
+    </script>
+  </body>
+</html>

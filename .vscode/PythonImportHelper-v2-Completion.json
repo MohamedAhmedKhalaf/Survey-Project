@@ -75,6 +75,14 @@
         "documentation": {}
     },
     {
+        "label": "width",
+        "importPath": "turtle",
+        "description": "turtle",
+        "isExtraImport": true,
+        "detail": "turtle",
+        "documentation": {}
+    },
+    {
         "label": "FastAPI",
         "importPath": "imports",
         "description": "imports",
@@ -200,6 +208,216 @@
         "documentation": {}
     },
     {
+        "label": "chi2_contingency",
+        "importPath": "scipy.stats",
+        "description": "scipy.stats",
+        "isExtraImport": true,
+        "detail": "scipy.stats",
+        "documentation": {}
+    },
+    {
+        "label": "OneHotEncoder",
+        "importPath": "sklearn.preprocessing",
+        "description": "sklearn.preprocessing",
+        "isExtraImport": true,
+        "detail": "sklearn.preprocessing",
+        "documentation": {}
+    },
+    {
+        "label": "LabelEncoder",
+        "importPath": "sklearn.preprocessing",
+        "description": "sklearn.preprocessing",
+        "isExtraImport": true,
+        "detail": "sklearn.preprocessing",
+        "documentation": {}
+    },
+    {
+        "label": "TomekLinks",
+        "importPath": "imblearn.under_sampling",
+        "description": "imblearn.under_sampling",
+        "isExtraImport": true,
+        "detail": "imblearn.under_sampling",
+        "documentation": {}
+    },
+    {
+        "label": "TomekLinks",
+        "importPath": "imblearn.under_sampling",
+        "description": "imblearn.under_sampling",
+        "isExtraImport": true,
+        "detail": "imblearn.under_sampling",
+        "documentation": {}
+    },
+    {
+        "label": "SelectKBest",
+        "importPath": "sklearn.feature_selection",
+        "description": "sklearn.feature_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.feature_selection",
+        "documentation": {}
+    },
+    {
+        "label": "chi2",
+        "importPath": "sklearn.feature_selection",
+        "description": "sklearn.feature_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.feature_selection",
+        "documentation": {}
+    },
+    {
+        "label": "train_test_split",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "GridSearchCV",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "cross_val_score",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "StratifiedKFold",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "accuracy_score",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
+        "label": "classification_report",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
+        "label": "LogisticRegression",
+        "importPath": "sklearn.linear_model",
+        "description": "sklearn.linear_model",
+        "isExtraImport": true,
+        "detail": "sklearn.linear_model",
+        "documentation": {}
+    },
+    {
+        "label": "KNeighborsClassifier",
+        "importPath": "sklearn.neighbors",
+        "description": "sklearn.neighbors",
+        "isExtraImport": true,
+        "detail": "sklearn.neighbors",
+        "documentation": {}
+    },
+    {
+        "label": "GaussianNB",
+        "importPath": "sklearn.naive_bayes",
+        "description": "sklearn.naive_bayes",
+        "isExtraImport": true,
+        "detail": "sklearn.naive_bayes",
+        "documentation": {}
+    },
+    {
+        "label": "SVC",
+        "importPath": "sklearn.svm",
+        "description": "sklearn.svm",
+        "isExtraImport": true,
+        "detail": "sklearn.svm",
+        "documentation": {}
+    },
+    {
+        "label": "DecisionTreeClassifier",
+        "importPath": "sklearn.tree",
+        "description": "sklearn.tree",
+        "isExtraImport": true,
+        "detail": "sklearn.tree",
+        "documentation": {}
+    },
+    {
+        "label": "RandomForestClassifier",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "ExtraTreesClassifier",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "BaggingClassifier",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "AdaBoostClassifier",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "GradientBoostingClassifier",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "VotingClassifier",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
         "label": "__all__",
         "kind": 5,
         "importPath": "imports",
@@ -213,7 +431,52 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()\n    genders_df = genders_df.reset_index()\n    # AGE DIST (BAR-CHART)\n    age_Series = df['What is your age?'].value_counts().reset_index()",
+        "peekOfCode": "def root():\n    return {'test': 'done'}\n@app.get('/descriptive_stats', response_class=HTMLResponse)\nasync def descriptive_stats(request: Request):\n    # Use a copy of the original DataFrame to avoid modifying it globally\n    df_stats = df.copy()\n    # Define the rating columns to analyze\n    rating_columns = [\n        'Python_Community_Support',\n        'Python_Execution_Speed',",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "infer_stat",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def infer_stat(request: Request):\n    # Use the copy for modifications within this route\n    df_local = df_infer.copy()\n    chi_square_test_columns = [\n        \"What is your age?\",\n        \"What is your gender?\",\n        \"What is your current role?\",\n        \"How many years of programming experience do you have?\",\n        \"Languages_Used\",\n        \"Python_Community_Support\",",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "shorten_feature_name",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def shorten_feature_name(name):\n    \"\"\"\n    Shortens feature names for better readability on plots.\n    Handles original names, and attempts to handle OHE suffixes.\n    \"\"\"\n    # Start with specific, longer phrases\n    name = name.replace('Which language do you use most frequently?', 'Most Frequent Lang')\n    name = name.replace('Which language do you prefer for the following tasks?', 'Prefer Task')\n    name = name.replace('Which language do you perceive as the most efficient for your tasks?', 'Eff. Lang')\n    name = name.replace('Which language do you think will dominate the job market in the next 5 years?', 'Future Dominance')",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "label_encode_with_exceptions",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def label_encode_with_exceptions(series, exception='Not Applicable'):\n    mask = series != exception\n    encoder = LabelEncoder()\n    # Fit and transform only on the masked data\n    # Handle potential errors if mask results in empty series for fit_transform\n    if series[mask].empty:\n         encoded = np.array([])\n         original_masked_index = []\n    else:\n        original_masked_index = series[mask].index",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_most_used_language",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_most_used_language(row):\n    # Use errors='ignore' in get to handle cases where columns might be missing unexpectedly\n    if row.get('Which language do you use most frequently?_Python', 0) == 1:\n        return 'Python'\n    elif row.get('Which language do you use most frequently?_Java', 0) == 1:\n        return 'Java'\n    elif row.get('Which language do you use most frequently?_All equally', 1) == 1: # Assume All equally is 1 if present\n        return 'All equally'\n    else:\n        return 'Unknown'",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "shorten_feature_name",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def shorten_feature_name(name):\n    name = name.replace('Which language do you prefer for the following tasks?   [', '')\n    name = name.replace('Which language do you perceive as the most efficient for your tasks?', 'Perceived Most Efficient')\n    name = name.replace('Which language do you think will dominate the job market in the next 5 years?', 'Future Dominance')\n    name = name.replace('Which language was the easiest for you to learn?', 'Easiest to Learn')\n    name = name.replace('Which language has the most beginner-friendly documentation and learning resources?', 'Best Docs & Resources')\n    name = name.replace('In your field, which language is the most commonly used?', 'Most Used in Field')\n    name = name.replace('Which language do you believe is most in demand for jobs?', 'Most In Demand Jobs')\n    name = name.replace('Which language would you recommend for someone entering your industry?', 'Recommended for Entry')\n    name = name.replace('Have you ever contributed to an open-source project in any of these languages?', 'OSS Contribution')",
         "detail": "main",
         "documentation": {}
     },
@@ -222,7 +485,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\nhost = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):",
+        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\nhost = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\nprofession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\ndf_infer = df.copy()\n@app.get('/')\ndef root():\n    return {'test': 'done'}",
         "detail": "main",
         "documentation": {}
     },
@@ -231,7 +494,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\nhost = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)",
+        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\nhost = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\nprofession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\ndf_infer = df.copy()\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/descriptive_stats', response_class=HTMLResponse)",
         "detail": "main",
         "documentation": {}
     },
@@ -240,7 +503,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "host = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()",
+        "peekOfCode": "host = \"127.0.0.1\"\nport = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\nprofession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\ndf_infer = df.copy()\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/descriptive_stats', response_class=HTMLResponse)\nasync def descriptive_stats(request: Request):",
         "detail": "main",
         "documentation": {}
     },
@@ -249,7 +512,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "port = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()",
+        "peekOfCode": "port = 8000\ndf = pd.read_csv('./cleaned_full_survey_data.csv')\nprofession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\ndf_infer = df.copy()\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/descriptive_stats', response_class=HTMLResponse)\nasync def descriptive_stats(request: Request):\n    # Use a copy of the original DataFrame to avoid modifying it globally",
         "detail": "main",
         "documentation": {}
     },
@@ -258,7 +521,52 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "df = pd.read_csv('./cleaned_full_survey_data.csv')\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/dashboard', response_class=HTMLResponse)\nasync def get_gender_portion(request: Request):\n    # making a dataframe that has the gender and the freq (PIE CHART)\n    genders_Series = df[['What is your gender?']].value_counts()\n    genders_df = genders_Series.to_frame()\n    genders_df = genders_df.reset_index()",
+        "peekOfCode": "df = pd.read_csv('./cleaned_full_survey_data.csv')\nprofession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\ndf_infer = df.copy()\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/descriptive_stats', response_class=HTMLResponse)\nasync def descriptive_stats(request: Request):\n    # Use a copy of the original DataFrame to avoid modifying it globally\n    df_stats = df.copy()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "profession_df",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "profession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\ndf_infer = df.copy()\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/descriptive_stats', response_class=HTMLResponse)\nasync def descriptive_stats(request: Request):\n    # Use a copy of the original DataFrame to avoid modifying it globally\n    df_stats = df.copy()\n    # Define the rating columns to analyze",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "df_infer",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "df_infer = df.copy()\n@app.get('/')\ndef root():\n    return {'test': 'done'}\n@app.get('/descriptive_stats', response_class=HTMLResponse)\nasync def descriptive_stats(request: Request):\n    # Use a copy of the original DataFrame to avoid modifying it globally\n    df_stats = df.copy()\n    # Define the rating columns to analyze\n    rating_columns = [",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "df_original",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "df_original = pd.read_csv('./cleaned_full_survey_data.csv')\nprofession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\n# Ensure df_infer is a copy for the infer_stat route's modifications\ndf_infer = df_original.copy()\n# Ensure profession_df is aligned with df_infer if needed for infer_stat\n# Define the label encoding function here so it's accessible to ML route\ndef label_encode_with_exceptions(series, exception='Not Applicable'):\n    mask = series != exception\n    encoder = LabelEncoder()\n    # Fit and transform only on the masked data",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "profession_df",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "profession_df = pd.read_csv(\"processed-datasets/profession_categories.csv\")\n# Ensure df_infer is a copy for the infer_stat route's modifications\ndf_infer = df_original.copy()\n# Ensure profession_df is aligned with df_infer if needed for infer_stat\n# Define the label encoding function here so it's accessible to ML route\ndef label_encode_with_exceptions(series, exception='Not Applicable'):\n    mask = series != exception\n    encoder = LabelEncoder()\n    # Fit and transform only on the masked data\n    # Handle potential errors if mask results in empty series for fit_transform",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "df_infer",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "df_infer = df_original.copy()\n# Ensure profession_df is aligned with df_infer if needed for infer_stat\n# Define the label encoding function here so it's accessible to ML route\ndef label_encode_with_exceptions(series, exception='Not Applicable'):\n    mask = series != exception\n    encoder = LabelEncoder()\n    # Fit and transform only on the masked data\n    # Handle potential errors if mask results in empty series for fit_transform\n    if series[mask].empty:\n         encoded = np.array([])",
         "detail": "main",
         "documentation": {}
     }

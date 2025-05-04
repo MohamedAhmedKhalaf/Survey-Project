@@ -43,6 +43,7 @@
         display: flex; /* Use flexbox to center image/plotly */
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
+        
       }
 
       .container_of_plot {
@@ -57,6 +58,7 @@
         background: #060c21;
         border-radius: 10px;
         margin-bottom: 1%; /* Add some margin between rows */
+        width: 49%;
       }
 
        /* Ensure Plotly and image content fits within the .pie div */
@@ -267,7 +269,9 @@
       /* Remove the glass effect as requested implicitly by only keeping styles */
       /* .container_of_plot .glass { display: none; } */
 
-
+      .py{
+        font-size: 12px;
+      }
       
     </style>
   </head>
@@ -280,8 +284,12 @@
     <div class="big-container">
       <div class="big-container">
       <div class="side-bar">
-        <a href="http://{{ host }}:{{ port }}/dashboard">📊 Respondents</a>
-        <a href="http://{{ host }}:{{ port }}/PythonVsJava">Python Vs Java</a>
+        <a href="http://{{ host }}:{{ port }}/descriptive_stats">📊 Statistics</a> {# Link to this new page #}
+        <a href="http://{{ host }}:{{ port }}/dashboard">👨‍💻 Respondents</a>
+        <a class="py" href="http://{{ host }}:{{ port }}/PythonVsJava"> 🐍 Python Vs 🍵 Java</a>
+        <a href="http://{{ host }}:{{ port }}/infer_stat">📈 Inference</a>
+        <a href="http://{{ host }}:{{ port }}/correlation">🔗 Correlation</a>
+        <a href="http://{{ host }}:{{ port }}/machine_learning">🤖 ML Model</a>
       </div>
 
       <div class="content">
@@ -639,8 +647,85 @@
                     {{ age_effi_div | safe }}
                 </div>
             </div>
-         </div>
 
+        <div class="container">
+             <!-- Java Adoption Funnel -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Speed</h2>
+                </div>
+                <hr class="hr" />
+                 <div
+                    class="pie"
+                    onclick="openPopup('Java Adoption Funnel', 'This funnel chart shows the progression of Java through stages: Perceived Future Dominance, Most Used, and Recommended for Entry.')"
+                >
+                    {{ bar1_div | safe }}
+                </div>
+            </div>
+
+            <!-- Open Source Contribution Status by Most Frequent Language -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Ease Of Use</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Open Source Contribution by Primary Language (Stacked Bar)', 'This chart shows the breakdown of open source contribution status for respondents based on their most frequently used language.')"
+                >
+                    {{ bar2_div | safe }}
+                </div>
+            </div>
+
+            <!-- Animated Bubble Chart: Experience vs. Switching Frequency by Age -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Documentation</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Experience vs. Switching Frequency by Age (Animated Bubble Chart)', 'This animated chart explores the relationship between programming experience and language switching frequency, sized by resource-seeking behavior and colored by perceived most efficient language, animated over different age groups.')"
+                >
+                    {{ bar3_div | safe }}
+                </div>
+            </div>
+            
+         </div>
+            
+         </div>
+         <div class="container">
+             <!-- Java Adoption Funnel -->
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Concurrency</h2>
+                </div>
+                <hr class="hr" />
+                 <div
+                    class="pie"
+                    onclick="openPopup('Java Adoption Funnel', 'This funnel chart shows the progression of Java through stages: Perceived Future Dominance, Most Used, and Recommended for Entry.')"
+                >
+                    {{ bar4_div | safe }}
+                </div>
+            </div>
+
+            <!-- Open Source Contribution Status by Most Frequent Language -->
+             <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>Readability</h2>
+                </div>
+                <hr class="hr" />
+                <div
+                    class="pie"
+                    onclick="openPopup('Open Source Contribution by Primary Language (Stacked Bar)', 'This chart shows the breakdown of open source contribution status for respondents based on their most frequently used language.')"
+                >
+                    {{ bar5_div | safe }}
+                </div>
+            </div>
+
+          
+            
+         </div>
 
       </div> {# End of content div #}
     </div> {# End of big-container div #}

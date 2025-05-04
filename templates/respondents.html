@@ -60,7 +60,6 @@
       .hr {
         margin: 0px;
         width: 100%;
-        
       }
 
       .hh {
@@ -288,24 +287,27 @@
         }
       }
 
-              /* WebKit browsers */
-        ::-webkit-scrollbar {
-        width: 8px;  /* or thinner like 6px */
-       }
+      /* WebKit browsers */
+      ::-webkit-scrollbar {
+        width: 8px; /* or thinner like 6px */
+      }
 
-        ::-webkit-scrollbar-track {
-          background: transparent;  /* remove white background */
-        }
+      ::-webkit-scrollbar-track {
+        background: transparent; /* remove white background */
+      }
 
-        ::-webkit-scrollbar-thumb {
-          background-color: #9500ff;  /* purple color */
-          border-radius: 10px;
-        }
+      ::-webkit-scrollbar-thumb {
+        background-color: #9500ff; /* purple color */
+        border-radius: 10px;
+      }
 
       /* Firefox */
       * {
         scrollbar-width: thin;
         scrollbar-color: #9600ff transparent;
+      }
+      .py {
+        font-size: 12px;
       }
     </style>
   </head>
@@ -317,8 +319,19 @@
 
     <div class="big-container">
       <div class="side-bar">
-        <a href="http://{{ host }}:{{ port }}/dashboard">📊 Respondents</a>
-        <a href="http://{{ host }}:{{ port }}/PythonVsJava">Python Vs Java</a>
+        <a href="http://{{ host }}:{{ port }}/descriptive_stats"
+          >📊 Statistics</a
+        >
+        {# Link to this new page #}
+        <a href="http://{{ host }}:{{ port }}/dashboard">👨‍💻 Respondents</a>
+        <a class="py" href="http://{{ host }}:{{ port }}/PythonVsJava">
+          🐍 Python Vs 🍵 Java</a
+        >
+        <a href="http://{{ host }}:{{ port }}/infer_stat">📈 Inference</a>
+        <a href="http://{{ host }}:{{ port }}/correlation">🔗 Correlation</a>
+        <a href="http://{{ host }}:{{ port }}/machine_learning"
+          >🤖 ML Model</a
+        >
       </div>
 
       <div class="content">
@@ -326,12 +339,12 @@
           <div class="container_of_plot">
             <!-- REMOVE <div class="glass"></div>  OR ADJUST THE OPACITY IN THE CSS-->
             <div class="header_of_container">
-              <h2>Males Vs Females</h2>
+              <h2>Gender</h2>
             </div>
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Gender Distribution', 'This chart shows the distribution of male and female respondents in the survey.')"
+              ondblclick="openPopup('Gender Distribution', 'Based on the pie chart, the survey respondents are predominantly male (66.3%) compared to female (33.7%).')"
             >
               {{ plot_div | safe }}
             </div>
@@ -345,7 +358,7 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Age Distribution', 'This chart illustrates the distribution of respondents across different age categories.')"
+              ondblclick="openPopup('Age Distribution', 'The bar chart shows that the majority of survey respondents fall within the 18-24 age category, with significantly fewer respondents in the 25-34 and 45+ age groups.')"
             >
               {{ age_dist_div | safe }}
             </div>
@@ -359,7 +372,7 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Roles Distribution', 'This chart presents the distribution of different roles of respondents in the survey.')"
+              ondblclick="openPopup('Roles Distribution', 'The bar chart indicates that the largest group of respondents are Students, followed by Data Scientists. There are also a few Analysts and Researchers who participated in the survey.')"
             >
               {{ roles_dist_div | safe }}
             </div>
@@ -375,7 +388,7 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Years of Experience', 'This chart shows the distribution of years of experience.')"
+              ondblclick="openPopup('Years of Experience', 'The bar chart demonstrates that the majority of respondents have 1-3 years of programming experience, followed by those with less than 1 year of experience. A smaller number of respondents have 7+ years of experience.')"
             >
               {{ exp_dist_div | safe }}
             </div>
@@ -389,7 +402,7 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Major Distribution', 'This chart illustrates the distribution of respondents by major.')"
+              ondblclick="openPopup('Major Distribution', 'The pie chart reveals that the largest proportion of respondents have a Major in Data (46.2%), followed by Software (41.7%). Smaller percentages of respondents majored in Other, Education, AI, and Security.')"
             >
               {{ major_dist_div | safe }}
             </div>
@@ -403,7 +416,7 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Programming Languages', 'This chart shows the distribution of programming languages known by respondents.')"
+              ondblclick="openPopup('Programming Languages', 'The pie chart illustrates that Python is the most used programming language among the respondents (75%), significantly more than Java (25%).')"
             >
               {{ langs_dist_div | safe }}
             </div>
@@ -418,7 +431,7 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Years of Experience', 'This chart shows the distribution of years of experience.')"
+              ondblclick="openPopup('Gender vs Programming Experience', 'This plot likely shows how programming experience levels differ between genders.  We would need to see the specific chart to provide a detailed insight, but generally, it would indicate if one gender has more experience in certain categories.')"
             >
               {{ gender_exp_div | safe }}
             </div>
@@ -432,7 +445,7 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Major Distribution', 'This chart illustrates the distribution of respondents by major.')"
+              ondblclick="openPopup('Major vs Languages Used', 'This plot likely displays the most popular programming languages within each major.  For example, it could show that Data majors primarily use Python, while Software majors might have a more diverse language usage.')"
             >
               {{ job_lang_div | safe }}
             </div>
@@ -446,11 +459,12 @@
             <hr class="hr" />
             <div
               class="pie"
-              onclick="openPopup('Programming Languages', 'This chart shows the distribution of programming languages known by respondents.')"
+              ondblclick="openPopup('Role vs Programming Experience', 'This plot likely illustrates the distribution of programming experience levels for each role.  For instance, it might show that Data Scientists tend to have more years of experience compared to Students.')"
             >
               {{ role_exp_div | safe }}
             </div>
           </div>
+        </div>
       </div>
     </div>
 

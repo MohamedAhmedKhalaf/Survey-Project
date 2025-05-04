@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Descriptive Statistics</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
+      * {
+        font-family: "JetBrains Mono", monospace;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      h1, h2, h3 {
+        color: whitesmoke;
+      }
+
+      h1 {
+        border-bottom: #1c1f2c 2px solid;
+        margin-bottom: 10px; /* Add margin below the main title */
+      }
+
+      body {
+        background-color: #0e0f1a;
+        text-align: center;
+        margin: 0px;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        gap: 1%;
+        padding: 1%;
+        justify-content: center; /* Center plots horizontally within the container */
+      }
+
+      .plot-area {
+        overflow: hidden;
+        border-radius: 0 0 13px 13px; /* Rounded bottom corners */
+        /* cursor: pointer; /* Optional: enable if you add click functionality */
+        background-color: #0e0f1a; /* Solid background for the plot area */
+        flex-grow: 1; /* Allow plot div to take available space */
+        display: flex; /* Use flexbox to center image/plotly */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        padding: 10px; /* Add some padding inside the plot area */
+      }
+
+      .container_of_plot {
+        width: 70%; /* Adjust width to fit 2 in a row with gap */
+        min-width: 350px; /* Minimum width for responsiveness */
+        flex-grow: 1; /* Allow items to grow */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.1s ease-in-out;
+        position: relative;
+        background: #060c21;
+        border-radius: 10px;
+        margin-bottom: 1%; /* Add some margin between rows */
+      }
+
+       /* Ensure Plotly content fits within the .plot-area div */
+      .plot-area > div { /* For Plotly divs */
+          max-width: 100%;
+          max-height: 100%;
+          height: auto; /* Maintain aspect ratio */
+          width: 100% !important; /* Ensure Plotly takes available width */
+      }
+
+      .header_of_container {
+        background-color: #1c1f2c;
+        border-radius: 10px 10px 0 0;
+        padding: 10px;
+      }
+
+      .hr {
+        margin: 0px;
+        width: 100%;
+        border: none; /* Remove default border */
+        height: 1px; /* Set height */
+        background-color: #1c1f2c; /* Match header background */
+      }
+
+      .container_of_plot:hover {
+        transform: scale(1.01);
+      }
+
+      .header {
+        margin: 0px;
+        background-color: #0b0c15;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+
+      .header h1 {
+        margin: 0px;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+      }
+
+      /* Popup styles (Optional - can remove if not using click popups) */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #1c1f2c;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1000;
+        width: 50%;
+        color: whitesmoke;
+      }
+
+      .popup .popup-content {
+        margin: 10px 0;
+      }
+
+      .popup .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 40px;
+        height: 28px;
+      }
+
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+      }
+
+      .big-container {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .content {
+        width: calc(100% - 200px); /* Adjust content width based on sidebar */
+        height: 100%;
+        margin-left: 200px; /* Push content to the right of the sidebar */
+        padding: 10px; /* Add padding around content */
+        color: whitesmoke; /* Default text color for content */
+      }
+
+
+      .side-bar {
+        background-color: #0b0c15;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+        width: 200px;
+        position: fixed;
+      }
+
+      .side-bar a {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .side-bar a:hover {
+        background-color: #1c1f2c;
+      }
+
+
+      /* Glowing border effects */
+      .container_of_plot::before,
+      .container_of_plot::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        z-index: -1;
+        border-radius: 13px;
+      }
+
+      /* Apply gradients */
+      .container_of_plot::before,
+      .container_of_plot::after {
+        background: conic-gradient(
+          from var(--angle),
+          #0c63e7,
+          #060c21,
+          #0c63e7,
+          #9600ff
+        );
+      }
+
+
+      .container_of_plot::after {
+        z-index: -2;
+        filter: blur(20px);
+      }
+
+      .container_of_plot:hover::before,
+      .container_of_plot:hover::after {
+        animation: glowing-border 3.5s linear infinite;
+      }
+
+      .container_of_plot:hover::after {
+        animation: glowing-border 3.5s linear infinite,
+          blur-effect 3.5s linear infinite;
+      }
+
+      @property --angle {
+        syntax: "<angle>";
+        initial-value: 53deg;
+        inherits: false;
+      }
+
+      @keyframes glowing-border {
+        from {
+          --angle: 53deg;
+        }
+
+        to {
+          --angle: 413deg;
+        }
+      }
+
+      @keyframes blur-effect {
+        from {
+          filter: blur(20px);
+        }
+
+        to {
+          filter: blur(19px);
+        }
+      }
+
+        /* Scrollbar Styling */
+        /* WebKit browsers */
+      ::-webkit-scrollbar {
+        width: 8px;  /* or thinner like 6px */
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;  /* remove white background */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #9500ff;  /* purple color */
+        border-radius: 10px;
+      }
+
+      /* Firefox */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #9600ff transparent;
+      }
+
+      /* Table Styling */
+       .styled-table {
+            border-collapse: collapse;
+            margin: 25px auto; /* Center the table and add vertical margin */
+            font-size: 0.9em;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            color: whitesmoke; /* Text color */
+            background-color: #060c21; /* Background for table */
+            width: 95%; /* Make table take up most of container width */
+            border-radius: 10px; /* Match container corner radius */
+            overflow: hidden; /* Ensures rounded corners clip content */
+        }
+
+        .styled-table thead tr {
+            background-color: #1c1f2c; /* Header background */
+            color: #ffffff;
+            text-align: left; /* Keep the 'Metric' header left-aligned? Or center it too? */
+        }
+
+        /* CSS to center all header text */
+        .styled-table th {
+            text-align: center; /* THIS IS THE NEW RULE */
+        }
+         /* If you specifically want the first column header ('Metric') left-aligned, use:
+         .styled-table th:first-child {
+             text-align: left;
+         }
+         */
+
+
+        .styled-table td {
+            padding: 12px 15px;
+            border: 1px solid #1c1f2c; /* Border color */
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #1c1f2c; /* Row separator */
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #0e0f1a; /* Alternate row color */
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #0c63e7; /* Highlight last row */
+        }
+        .styled-table td:first-child { /* Target the metric names in the body */
+            font-weight: bold; /* Make the metric column stand out */
+        }
+        .py{
+        font-size: 12px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Descriptive Statistics & Distributions</h1>
+    </div>
+
+    <div class="big-container">
+      <div class="side-bar">
+        <a href="http://{{ host }}:{{ port }}/descriptive_stats">📊 Statistics</a> {# Link to this new page #}
+        <a href="http://{{ host }}:{{ port }}/dashboard">👨‍💻 Respondents</a>
+        <a class="py" href="http://{{ host }}:{{ port }}/PythonVsJava"> 🐍 Python Vs 🍵 Java</a>
+        <a href="http://{{ host }}:{{ port }}/infer_stat">📈 Inference</a>
+        <a href="http://{{ host }}:{{ port }}/correlation">🔗 Correlation</a>
+        <a href="http://{{ host }}:{{ port }}/machine_learning">🤖 ML Model</a>
+
+      </div>
+
+      <div class="content">
+ 
+        {# Display the descriptive statistics table #}
+        {{ descriptive_stats_table_html | safe }}
+
+       
+        <div class="container">
+            {# Loop through the list of plot data (title + html) #}
+            {% for plot_info in frequency_plot_data %}
+            <div class="container_of_plot">
+                <div class="header_of_container">
+                    <h2>{{ plot_info.title }}</h2> {# Use the dynamic title #}
+                </div>
+                <hr class="hr" />
+                <div class="plot-area"> {# Use plot-area class #}
+                    {{ plot_info.html | safe }} {# Use the dynamic HTML #}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+      </div> {# End of content div #}
+    </div> {# End of big-container div #}
+
+    {# Optional: Add Popup/Overlay HTML if you intend to use click popups for these charts #}
+    {# <div class="popup-overlay" id="popup-overlay"></div> #}
+    {# <div class="popup" id="popup"> #}
+    {#   <button class="popup-close" onclick="closePopup()">X</button> #}
+    {#   <h2 id="popup-title"></h2> #}
+    {#   <div class="popup-content" id="popup-content"></div> #}
+    {# </div> #}
+
+    <script>
+      // Optional: Add JavaScript for popups if you included the popup HTML above
+      // function openPopup(title, content) {
+      //   document.getElementById("popup-title").textContent = title;
+      //   document.getElementById("popup-content").textContent = content;
+      //   document.getElementById("popup").style.display = "block";
+      //   document.getElementById("popup-overlay").style.display = "block";
+      // }
+
+      // function closePopup() {
+      //   document.getElementById("popup").style.display = "none";
+      //   document.getElementById("popup-overlay").style.display = "none";
+      // }
+    </script>
+  </body>
+</html>
